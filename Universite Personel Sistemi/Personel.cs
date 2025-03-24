@@ -8,66 +8,82 @@ namespace Universite_Personel_Sistemi
 {
     public class Personel
     {
-        public string Isim { get; private protected set; }
-        public decimal AylikMaas { get; set; }
+        private string tcNo;
+        private string isim;
+        private decimal aylikMaas;
 
-        public Personel(string TCno, string isim, decimal aylikMaas)
+        public string TcNo
         {
-            if (string.IsNullOrWhiteSpace(isim))
-                throw new ArgumentException("İsim boş olamaz.", nameof(isim));
-            if (aylikMaas < 0)
-                throw new ArgumentException("Aylık maaş negatif olamaz.", nameof(aylikMaas));
-
-            Isim = isim;
-            AylikMaas = aylikMaas;
-
-            int Algoritma_Adim_Kontrol = 0, TekBasamaklarToplami = 0, CiftBasamaklarToplami = 0;
-
-            if (TCno.Length == 11)
-                Algoritma_Adim_Kontrol = 1;
-            foreach (char chr in TCno)
+            get
             {
-                if (char.IsNumber(chr))
-                    Algoritma_Adim_Kontrol = 2;
+                return tcNo;
             }
-            if (TCno.Substring(0, 1) != "0")
-                Algoritma_Adim_Kontrol = 3;
-
-            int[] arrTC = System.Text.RegularExpressions.Regex.Replace(TCno, "[^0-9]", "")
-                           .Select(x => (int)char.GetNumericValue(x))
-                           .ToArray();
-
-            for (int i = 0; i < TCno.Length; i++)
+            set
             {
-                if (((i + 1) % 2) == 0)
-                {
-                    if (i + 1 != 10)
-                        CiftBasamaklarToplami += Convert.ToInt32(arrTC[i]);
-                    else if (i + 1 != 11)
-                        TekBasamaklarToplami += Convert.ToInt32(arrTC[i]);
-                }
+                if (!TcDogrulama(value))
+                    throw new ArgumentException("TC No Yanlış", nameof(value));
+                tcNo = value;
             }
-
-            if (Convert.ToInt32(TCno.Substring(9, 1))
-               == (((TekBasamaklarToplami * 7) - CiftBasamaklarToplami) % 10))
-            {
-                Algoritma_Adim_Kontrol = 4;
-            }
-            if (Convert.ToInt32(TCno.Substring(10, 1))
-               == ((arrTC.Sum() - Convert.ToInt32(TCno.Substring(10, 1))) % 10))
-            {
-                Algoritma_Adim_Kontrol = 5;
-            }
-
-            if (Algoritma_Adim_Kontrol != 5)
-                throw new ArgumentException("TC No Yanlış", nameof(TCno));
         }
 
-        public static Personel operator +(Personel person, decimal artisMiktari)
+        public string Isim
         {
-            person.AylikMaas += artisMiktari;
-            return person;
+            get
+            {
+                return isim;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("İsim boş olamaz.", nameof(value));
+                isim = value;
+            }
+        }
 
+        public decimal AylikMaas
+        {
+            get
+            {
+                return aylikMaas;
+            }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Aylık maaş negatif olamaz.", nameof(value));
+                aylikMaas = value;
+            }
+        }
+
+        public Personel(string _tcNo, string _isim, decimal _aylikMaas)
+        {
+            TcNo = _tcNo;
+            Isim = _isim;
+            AylikMaas = _aylikMaas;
+        }
+
+        private bool TcDogrulama(string _tcNo)
+        {
+            if (_tcNo.Length != 11) return false;
+            if (!_tcNo.All(char.IsDigit)) return false;
+            if (_tcNo[0] == '0') return false;
+
+            int[] digits = _tcNo.Select(x => x - '0').ToArray();
+            int teklerinToplami = digits[0] + digits[2] + digits[4] + digits[6] + digits[8];
+            int ciftlerinToplami = digits[1] + digits[3] + digits[5] + digits[7];
+
+           
+            if ((((teklerinToplami * 7) - ciftlerinToplami) % 10) != digits[9]) return false;
+            
+            int ilkOnToplami = digits.Take(10).Sum();
+            if ((ilkOnToplami % 10) != digits[10]) return false;
+
+            return true;
+        }
+
+        public static Personel operator +(Personel _personel, decimal _artisMiktari)
+        {
+            _personel.AylikMaas += _artisMiktari;
+            return _personel;
         }
     }
 }

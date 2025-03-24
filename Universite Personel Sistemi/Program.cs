@@ -16,7 +16,7 @@ namespace Universite_Personel_Sistemi
                     "Hayri Sezer",
                     5000m,
                     AkademikPersonel.AkademikUnvan.DoçDr, 
-                    new List<string> { "makale1", "makale2" }
+                    new List<string> { "Makine Öğrenmesi ve Veri Madenciliği: Sağlık Sektöründe Erken Tanı Sistemlerinin Geliştirilmesi", "Sosyal Bilimlerde Yeni Yaklaşımlar: Küreselleşme ve Kimlik Politikalarının İlişkisi", "Yükseköğretimde Dijitalleşme: Üniversitelerde Eğitim Teknolojilerinin Etkisi ve Geleceği" }
                 )
             );
             personeller.Add(
@@ -25,7 +25,7 @@ namespace Universite_Personel_Sistemi
                     "Yağmur Aldemir",
                     6000m,
                     AkademikPersonel.AkademikUnvan.ProfDr,
-                    new List<string> { "makale3", "makale4" }
+                    new List<string> { "Toplumsal Cinsiyet Eşitliği ve Hukuk: Modern Hukuk Sistemlerinde Kadın Hakları Perspektifi", "İklim Değişikliği ve Sürdürülebilir Kalkınma: Yenilenebilir Enerji Kaynaklarının Ekonomik ve Çevresel Yararları" }
                 )
             );
 
@@ -38,8 +38,11 @@ namespace Universite_Personel_Sistemi
                 )
             );
 
-            // (+) operatorunu overload ederek ilk personel maasina zam
-            personeller[0].AylikMaas += 600m;
+            // (+) operatorunu overload ederek personel maasina zam
+            for (int i = 0; i < personeller.Count; i++)
+            {
+                personeller[i] += 600m;
+            }
 
             // Maaş toplami ve ortalamasi
             decimal toplamMaas = 0;
@@ -58,19 +61,18 @@ namespace Universite_Personel_Sistemi
             Console.WriteLine($"Üniversitedeki ortalama maaş: {ortalamaMaas}");
 
             Console.WriteLine("----------------------------------");
-            Console.WriteLine("Liste:");
-            foreach (var p in personeller)
+            foreach (var per in personeller)
             {
-                if (p is AkademikPersonel ak)
+                if (per is AkademikPersonel akademik)
                 {
                     Console.WriteLine(
-                        $"{ak.Unvan}.{ak.Isim} - Maaş: {ak.AylikMaas}\nMakaleler: {string.Join(", ", ak.MakalelerListesi)}"
+                        $"{akademik.Unvan}.{akademik.Isim} - Maaş: {akademik.AylikMaas}\nMakaleler: \n {string.Join(",\n ", akademik.MakalelerListesi)}"
                     );
                 }
-                else if (p is IdariPersonel id)
+                else if (per is IdariPersonel idari)
                 {
                     Console.WriteLine(
-                        $"{id.Isim} - İdari Görev: {id.Gorev} - Maaş: {id.AylikMaas}"
+                        $"{idari.Isim} - İdari Görev: {idari.Gorev} - Maaş: {idari.AylikMaas}"
                     );
                 }
                 Console.WriteLine("----------------------------------");

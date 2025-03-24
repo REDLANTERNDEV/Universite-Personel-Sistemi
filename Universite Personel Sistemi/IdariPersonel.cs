@@ -6,16 +6,27 @@ using System.Threading.Tasks;
 
 namespace Universite_Personel_Sistemi
 {
-    class IdariPersonel:Personel
+    class IdariPersonel : Personel
     {
-        public string Gorev { get; protected private set; }
+        private string gorev;
 
-        public IdariPersonel(string TCno, string isim, decimal maas, string gorev):base(TCno, isim, maas)
+        public string Gorev
         {
-            if (string.IsNullOrWhiteSpace(gorev))
-                throw new ArgumentException("Görev boş olamaz.", nameof(gorev));
+            get 
+            { 
+                return gorev;
+            }
+            private set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Görev boş olamaz.", nameof(value));
+                gorev = value;
+            }
+        }
 
-            Gorev = gorev;
+        public IdariPersonel(string _TCno, string _isim, decimal _maas, string _gorev) : base(_TCno, _isim, _maas)
+        {
+            Gorev = _gorev;
         }
     }
 }

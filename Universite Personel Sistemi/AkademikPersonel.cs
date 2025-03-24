@@ -3,32 +3,51 @@ using System.Collections.Generic;
 
 namespace Universite_Personel_Sistemi
 {
-    class AkademikPersonel : Personel
+    public class AkademikPersonel : Personel
     {
         public enum AkademikUnvan
         {
-            ProfDr = 1,
-            DoçDr,
-            Dr,
+            ArsGor = 1,
             ÖğGör,
-            ArsGor
+            Dr,
+            DoçDr,
+            ProfDr
         }
 
-        public List<string> MakalelerListesi { get; private protected set; }
-        public AkademikUnvan Unvan { get; private protected set; }
+        private AkademikUnvan unvan;
+        private List<string> makalelerListesi;
 
-        public AkademikPersonel(string tcNo, string isim, decimal maas,
-                                AkademikUnvan unvan, List<string> makalelerListesi)
-            : base(tcNo, isim, maas)
+        public AkademikUnvan Unvan
         {
+            get { return unvan; }
+            set
+            {
+                if (!Enum.IsDefined(typeof(AkademikUnvan), value))
+                    throw new ArgumentException("Akademik unvan boş geçilemez veya geçersiz.", nameof(value));
+                unvan = value;
+            }
+        }
 
-            if (!Enum.IsDefined(typeof(AkademikUnvan), unvan))
-                throw new ArgumentException("Akademik unvan boş geçilemez veya geçersiz.", nameof(unvan));
+        public List<string> MakalelerListesi
+        {
+            get 
+            {
+                return makalelerListesi;
+            } 
+            set
+            {
+                if (value is null || value.Count == 0)
+                    throw new ArgumentException("Makaleler listesi boş geçilemez.", nameof(value));
+                makalelerListesi = value;
+            }
+        }
 
-            if (makalelerListesi is null || makalelerListesi.Count == 0)
-                throw new ArgumentException("Makaleler listesi boş geçilemez.", nameof(makalelerListesi));
-            Unvan = unvan;
-            MakalelerListesi = makalelerListesi;
+        public AkademikPersonel(string _tcNo, string _isim, decimal _maas,
+                                AkademikUnvan _unvan, List<string> _makalelerListesi)
+            : base(_tcNo, _isim, _maas)
+        {
+            Unvan = _unvan;
+            MakalelerListesi = _makalelerListesi;
         }
     }
 }
