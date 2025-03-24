@@ -66,7 +66,7 @@ namespace Universite_Personel_Sistemi
                 if (per is AkademikPersonel akademik)
                 {
                     Console.WriteLine(
-                        $"{akademik.Unvan}.{akademik.Isim} - Maaş: {akademik.AylikMaas}\nMakaleler: \n {string.Join(",\n ", akademik.MakalelerListesi)}"
+                        $"{akademik.Unvan}. {akademik.Isim} - Maaş: {akademik.AylikMaas}\nMakaleler: \n {string.Join(",\n ", akademik.MakalelerListesi)}"
                     );
                 }
                 else if (per is IdariPersonel idari)
