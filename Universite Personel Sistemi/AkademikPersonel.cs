@@ -7,7 +7,7 @@ namespace Universite_Personel_Sistemi
     {
         public enum AkademikUnvan
         {
-            ArsGor = 1,
+            ArsGor,
             ÖğGör,
             Dr,
             DoçDr,
@@ -42,9 +42,9 @@ namespace Universite_Personel_Sistemi
             }
         }
 
-        public AkademikPersonel(string _tcNo, string _isim, decimal _maas,
+        public AkademikPersonel(string _tcNo, string _isim, decimal _aylikMaas,
                                 AkademikUnvan _unvan, List<string> _makalelerListesi)
-            : base(_tcNo, _isim, _maas)
+            : base(_tcNo, _isim, _aylikMaas)
         {
             Unvan = _unvan;
             MakalelerListesi = _makalelerListesi;

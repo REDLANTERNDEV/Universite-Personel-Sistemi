@@ -24,7 +24,7 @@ namespace Universite_Personel_Sistemi
             }
         }
 
-        public IdariPersonel(string _TCno, string _isim, decimal _maas, string _gorev) : base(_TCno, _isim, _maas)
+        public IdariPersonel(string _tcNo, string _isim, decimal _aylikMaas, string _gorev) : base(_tcNo, _isim, _aylikMaas)
         {
             Gorev = _gorev;
         }
