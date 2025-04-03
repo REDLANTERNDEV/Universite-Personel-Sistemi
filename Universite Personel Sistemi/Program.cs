@@ -66,13 +66,13 @@ namespace Universite_Personel_Sistemi
                 if (per is AkademikPersonel akademik)
                 {
                     Console.WriteLine(
-                        $"{akademik.Unvan}. {akademik.Isim} - Maaş: {akademik.AylikMaas} TL\nMakaleler: \n {string.Join(",\n ", akademik.MakalelerListesi)}"
+                        $"{akademik.TcNo} - {akademik.Unvan}. {akademik.Isim} - Maaş: {akademik.AylikMaas} TL\nMakaleler: \n {string.Join(",\n ", akademik.MakalelerListesi)}"
                     );
                 }
                 else if (per is IdariPersonel idari)
                 {
                     Console.WriteLine(
-                        $"{idari.Isim} - İdari Görev: {idari.Gorev} - Maaş: {idari.AylikMaas} TL"
+                        $"{idari.TcNo} - {idari.Isim} - İdari Görev: {idari.Gorev} - Maaş: {idari.AylikMaas} TL"
                     );
                 }
                 Console.WriteLine("----------------------------------");
