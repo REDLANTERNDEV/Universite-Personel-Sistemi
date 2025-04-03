@@ -57,8 +57,8 @@ namespace Universite_Personel_Sistemi
                 ortalamaMaas = toplamMaas / personeller.Count;
             }
 
-            Console.WriteLine($"Üniversitedeki toplam maaş: {toplamMaas}");
-            Console.WriteLine($"Üniversitedeki ortalama maaş: {ortalamaMaas}");
+            Console.WriteLine($"Üniversitedeki toplam maaş: {toplamMaas} TL");
+            Console.WriteLine($"Üniversitedeki ortalama maaş: {ortalamaMaas} TL");
 
             Console.WriteLine("----------------------------------");
             foreach (var per in personeller)
@@ -66,13 +66,13 @@ namespace Universite_Personel_Sistemi
                 if (per is AkademikPersonel akademik)
                 {
                     Console.WriteLine(
-                        $"{akademik.Unvan}. {akademik.Isim} - Maaş: {akademik.AylikMaas}\nMakaleler: \n {string.Join(",\n ", akademik.MakalelerListesi)}"
+                        $"{akademik.Unvan}. {akademik.Isim} - Maaş: {akademik.AylikMaas} TL\nMakaleler: \n {string.Join(",\n ", akademik.MakalelerListesi)}"
                     );
                 }
                 else if (per is IdariPersonel idari)
                 {
                     Console.WriteLine(
-                        $"{idari.Isim} - İdari Görev: {idari.Gorev} - Maaş: {idari.AylikMaas}"
+                        $"{idari.Isim} - İdari Görev: {idari.Gorev} - Maaş: {idari.AylikMaas} TL"
                     );
                 }
                 Console.WriteLine("----------------------------------");
